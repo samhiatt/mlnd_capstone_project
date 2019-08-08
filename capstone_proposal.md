@@ -14,14 +14,14 @@ By applying machine learning techniques for image classification on these sonogr
 
 ### Problem Statement
 
-This project will build two classifiers to label audio recordings of avian vocalizations. One will predict the most prevalent / most likely species of bird in the clip, and the other will predict the call type.
+This project will build two classifiers to experiment with machine learning for labeling audio recordings of avian vocalizations. One classifier will predict the most prevalent / most likely species of bird in the clip from a specific subset of species commonly heard in the United Kingdom. The other classifier will assume the species is a Zebra Finch and will predict call type.
 
 
 ### Datasets and Inputs
 
-[Xeno Canto](https://www.xeno-canto.org) is an online community and Creative Commons database of crowd-sourced recordings of birds from around the world, indexed by species and labeled by call type. The [British Birdsong Dataset](https://www.kaggle.com/rtatman/british-birdsong-dataset), available as a Kaggle dataset, is a small subset of this database and contains 264 recordings from 88 species commonly heard in the United Kingdom and includes a balanced number of samples per class. 
+[Xeno Canto](https://www.xeno-canto.org) is an online community and database of crowd-sourced recordings of birds from around the world, indexed by species and labeled by call type. The [British Birdsong Dataset](https://archive.org/details/xccoverbl_2014) is a specific subset of the Xeno Canto database, originally compiled by Dan Stowell, and contains 264 recordings with Creative Commons licensing from 88 species commonly heard in the United Kingdom, and it includes a balanced number of samples per class. It is available as a [Kaggle dataset here](https://www.kaggle.com/rtatman/british-birdsong-dataset).
 
-The study [Individual recognition of opposite sex vocalizations in the zebra finch](https://www.nature.com/articles/s41598-017-05982-x) by researchers at the Max Planck Institute for Ornithology in Germany showed that zebra finches can recognize their mates' vocalizations with a purely audible stimulus. While this study focused on individual recognition, it also produced a [high-quality, publically available dataset](https://datadryad.org/resource/doi:10.5061/dryad.4g8b7/1) of individual zebra finch calls labeled by bird id and call type. 
+The study [Individual recognition of opposite sex vocalizations in the zebra finch](https://www.nature.com/articles/s41598-017-05982-x) by researchers at the Max Planck Institute for Ornithology in Germany showed that zebra finches can recognize their mates' vocalizations with a purely audible stimulus. While this study focused on individual recognition, it also produced a [high-quality, publicly available dataset](https://datadryad.org/resource/doi:10.5061/dryad.4g8b7/1) of individual Zebra finch calls labeled by six types of vocalizations, called "stack", "kackle", "tet", "hat", "distance", and "male song". 
 
 
 ### Solution Statement
@@ -31,7 +31,7 @@ Drawing on insights from the project DeepSqueak, this effort will attempt to imp
 
 ### Benchmark Model
 
-The [Kaggle kernel by Edoardo Ferrante](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb) uses the same British Birdsong dataset and creates sonograms for each audio sample. It includes a benchmark species classification model showing a Naive Bayes classifier achieving 86% test accuracy. [Another Kaggle kernel by Edoardo Ferrante](https://www.kaggle.com/fleanend/bird-visualisation-and-classification) uses the same sonograms from the previous kernel and implements classifiers with improved accuracy, 97.7% by using a Multi-layer Perceptron model, and 98.3% by using a random forest model. 
+The [Kaggle kernel by Edoardo Ferrante](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb) uses the same British Birdsong dataset and creates sonograms for each audio sample. It includes a benchmark model showing a Naive Bayes species classifier achieving 86% test accuracy. [Another Kaggle kernel by Edoardo Ferrante](https://www.kaggle.com/fleanend/bird-visualisation-and-classification) uses the same sonograms from the previous kernel and implements classifiers with improved accuracy, 97.7% by using a Multi-layer Perceptron model, and 98.3% by using a random forest model. 
 
 No existing call type classifiers based on the Zebra Finch dataset were found, so a new benchmark will be needed. A Naive Bayes classifier will be trained and used as a benchmark model for the call type classifier.
 
@@ -42,20 +42,21 @@ The accuracy of each classification model will be evaluated using cross-validati
 
 ### Project Design
 
-First, analyze avilable data in the chosen datasets, looking at the distributions of represented classes and the length of each audio file. 
+First, analyze the chosen datasets looking at the distributions of represented classes and the length of each audio file. Create sonograms and analyze statistics. 
 
-Next, review the approach taken for chopping up the audio files and creating the training and test datasets in [Edoardo Ferrante's kaggle kernel](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb). Determine if the implemented data partitioning strategy was appropriate. Could the classifier be picking up on environmental artifacts present in an individual recording, presenting data leakage? If appropriate, readdress partitioning strategy. 
+Next, review the approach taken for chopping up the audio files and creating the training and test datasets in [Edoardo Ferrante's Kaggle kernel](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb). Determine if the implemented data partitioning strategy was appropriate. Could the classifier be picking up on environmental artifacts present in an individual recording, presenting data leakage? If appropriate, readdress partitioning strategy. 
 
 Attempt to replicate the results of [Edoardo Ferrante's benchmark model](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb) then train and evaluate the following classifiers and compare to [Edoardo Ferrante's results](https://www.kaggle.com/fleanend/bird-visualisation-and-classification):
+* Naive Bayes Classifier, use this as a benchmark. 
 * Logistic Regression
 * Random Forest Classifier
 * MLP Classifier
+
+Implement this same workflow on the Zebra Finch dataset to create a classifier that labels clips by call type. 
     
-Now try to improve on this result by implementing a CNN-based classifier. Try several different configurations of CNNs. Try networks that only apply convolution and max pooling along the temporal dimension. Evaluate results of best-performing model against the test dataset and compare to benchmarks.
+Now try to improve on these results by implementing a CNN-based classifier. Try several different configurations of CNNs. Try networks that only apply convolution and max pooling along the temporal dimension. Produce a confusion matrix to see which classes are most difficult to distinguish. 
 
-Implement this same workflow on the Zebra Finch dataset, except labeling the clips by call type. 
-
-Compare the performance of benchmark classifiers vs CNN-based classifiers and summarize results.
+Evaluate the best-performing models against the benchmarks and summarize the results of each classifier.
 
 
 ## References
