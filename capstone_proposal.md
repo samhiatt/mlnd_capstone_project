@@ -33,11 +33,11 @@ Drawing on insights from the project DeepSqueak, this effort will attempt to imp
 
 The [Kaggle kernel by Edoardo Ferrante](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb) uses the same British Birdsong dataset and creates sonograms for each audio sample. It includes a benchmark model showing a Naive Bayes species classifier achieving 86% test accuracy. [Another Kaggle kernel by Edoardo Ferrante](https://www.kaggle.com/fleanend/bird-visualisation-and-classification) uses the same sonograms from the previous kernel and implements classifiers with improved accuracy, 97.7% by using a Multi-layer Perceptron model, and 98.3% by using a random forest model. 
 
-No existing call type classifiers based on the Zebra Finch dataset were found, so a new benchmark will be needed. A Naive Bayes classifier will be trained and used as a benchmark model for the call type classifier.
+No existing call type classifiers based on the Zebra Finch dataset were found, so a new benchmark will be needed. A Naive Bayes classifier will be trained on sonograms and used as a benchmark model for the call type classifier.
 
 ### Evaluation Metrics
 
-The accuracy of each classification model will be evaluated using cross-validation, computing training accuracy and validation accuracy, defined as the number of correctly labeled samples divided by the total number of samples in each fold. Test accuracy for models trained on the British Birdsong dataset will be evaluated using the provided test dataset. Evaluation of test accuracy for the Zebra Finch call type classifier will use a subset designated from the beginning to be used as a test set. 
+[sklearn.metrics.accuracy_score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html) will be used to evaluate the overall accuracy of each classification model. It is simply defined as the number of correctly labeled samples divided by the total number of samples. During model selection and hyperparameter tuning 5-fold cross-validation will be used. Final test accuracy will be evaluated against a subset kept aside from the beginning to be used as a test set. 
 
 
 ### Project Design
