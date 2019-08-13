@@ -25,7 +25,7 @@ In this section, you will want to clearly define the problem that you are trying
 * Leave room for reducing the problem space by reducing the number of classes.
 ....
 
-Using audio data from the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset, this project trains a classifier to predict the most prevalent bird species in a given audio sample of avian vocalizations. During preprocessing,[Mel-spectrograms](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) and [Mel-frequency Cepstral Coefficients (MFCCs)](https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html) are generated and used as input features for classification. Several different classification models are implemented, tuned, and evaluated. It is expected that a CNN will be able to achieve improved performance by introducing some temporal invariance to the input data. 
+Using audio data from the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset, this project trains a classifier to predict the most prevalent bird species in a given audio sample of avian vocalizations. [Mel-spectrograms](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) and [Mel-frequency Cepstral Coefficients (MFCCs)](https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html), another audio transform commonly used in voice recognition tasks, are used as input features for classification. Several different classification models are implemented, tuned, and evaluated. It is expected that a CNN will be able to achieve improved performance by introducing some temporal invariance to the input data.
 
 This effort focuses on just a small subset of the available data. While many additional samples of each species are available online and could be used to improve the accuracy for any particular species of interest, such refinement is left for future work.
 
@@ -40,9 +40,8 @@ Model performance is evaluated by calculating the [accuracy score](https://sciki
 
 ### Data Exploration
 In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers). Questions to ask yourself when writing this section:
-- _If a dataset is present for this problem, have you thoroughly discussed certain features about the dataset? Has a data sample been provided to the reader?_
-- _If a dataset is present for this problem, are statistics about the dataset calculated and reported? Have any relevant results from this calculation been discussed?_
-- _If a dataset is **not** present for this problem, has discussion been made about the input space or input data for your problem?_
+- _Have you thoroughly discussed certain features about the dataset? Has a data sample been provided to the reader?_
+- _Are statistics about the dataset calculated and reported? Have any relevant results from this calculation been discussed?_
 - _Are there any abnormalities or characteristics about the input space or dataset that need to be addressed? (categorical variables, missing values, outliers, etc.)_
 
 ### Exploratory Visualization
@@ -51,20 +50,30 @@ In this section, you will need to provide some form of visualization that summar
 - _Is the visualization thoroughly analyzed and discussed?_
 - _If a plot is provided, are the axes, title, and datum clearly defined?_
 
+...  
+* Show distributions of classes.
+  * Recordings per class
+  * seconds per class.
+* Show some spectrograms and MFCCs.
+* Plot some histograms of spectrogram pixels to show their exponential distribution.
+...  
+
 ### Algorithms and Techniques
 In this section, you will need to discuss the algorithms and techniques you intend to use for solving the problem. You should justify the use of each one based on the characteristics of the problem and the problem domain. Questions to ask yourself when writing this section:
 - _Are the algorithms you will use, including any default variables/parameters in the project clearly defined?_
 - _Are the techniques to be used thoroughly discussed and justified?_
 - _Is it made clear how the input data or datasets will be handled by the algorithms and techniques chosen?_
 
+* describe use of spectrograms, time on one axis, frequency on the other
+
 ### Benchmark
 In this section, you will need to provide a clearly defined benchmark result or threshold for comparing across performances obtained by your solution. The reasoning behind the benchmark (in the case where it is not an established result) should be discussed. Questions to ask yourself when writing this section:
 - _Has some result or value been provided that acts as a benchmark for measuring performance?_
 - _Is it clear how this result or value was obtained (whether by data or by hypothesis)?_
 
+A purely random predictor would be correct 1.1% of the time (1/91 classes). A [Gaussian Naive Bayes classifier](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html) should perform better than random guessing and is used as a benchmark predictor. The naive assumption of feature independence is expected to limit the accuracy of this predictor. It is expected to be able to pick up on certain frequency bands that are common for a particular species' vocalizations.
 
 ## III. Methodology
-_(approx. 3-5 pages)_
 
 ### Data Preprocessing
 In this section, all of your preprocessing steps will need to be clearly documented, if any were necessary. From the previous section, any of the abnormalities or characteristics that you identified about the dataset will be addressed and corrected here. Questions to ask yourself when writing this section:
@@ -86,7 +95,6 @@ In this section, you will need to discuss the process of improvement you made up
 
 
 ## IV. Results
-_(approx. 2-3 pages)_
 
 ### Model Evaluation and Validation
 In this section, the final model and any supporting qualities should be evaluated in detail. It should be clear how the final model was derived and why this model was chosen. In addition, some type of analysis should be used to validate the robustness of this model and its solution, such as manipulating the input data or environment to see how the model’s solution is affected (this is called sensitivity analysis). Questions to ask yourself when writing this section:
@@ -103,7 +111,6 @@ In this section, your model’s final solution and its results should be compare
 
 
 ## V. Conclusion
-_(approx. 1-2 pages)_
 
 ### Free-Form Visualization
 In this section, you will need to provide some form of visualization that emphasizes an important quality about the project. It is much more free-form, but should reasonably support a significant result or characteristic about the problem that you want to discuss. Questions to ask yourself when writing this section:
