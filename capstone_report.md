@@ -11,12 +11,11 @@ In this section, look to provide a high-level overview of the project in laymanâ
 
 #### Background
 Many social animals communicate using vocalizations that can give clues to their species as well as to their intent.
-[Spectrograms](https://en.wikipedia.org/wiki/Spectrogram) (or sonograms, visualizations based on sound frequencies) are commonly used for visual representation of audio information and have long been used for interpreting recordings of animal vocalizations. [Bird Song Research: The Past 100 Years](https://courses.washington.edu/ccab/Baker%20-%20100%20yrs%20of%20birdsong%20research%20-%20BB%202001.pdf) describes how a device called the Sona-Graphâ„¢, developed by Kay Electric in 1948, began to be used by ornithologists in the early 1950's and greatly accelerated avian bioacoustical research.
+[Spectrograms](https://en.wikipedia.org/wiki/Spectrogram) (or sonograms, visualizations based on sound frequencies) are commonly used for visual representation of audio information and have long been used for studying recordings of animal vocalizations.  
 
-By applying machine learning techniques for image classification on these sonograms, automated classification of audio clips is possible. The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle takes this approach for classifying recordings of ultrasonic vocalizations of rodents. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
+The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle takes a deep learning approach for classifying recordings of ultrasonic vocalizations of rodents. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
 
-Here we apply we take a similar approach to attempt to predict bird species from digital audio recordings of their vocalizations. We use crowd-sourced Creative Commons audio recordings of 91 different species common in California and Nevada, USA. [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) 
-
+Here we apply we take a similar approach to attempt to predict bird species from digital audio recordings of their vocalizations. We use crowd-sourced Creative Commons audio recordings of 91 different species common in California and Nevada, USA. The dataset [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) was curated for this purpose. It should be noted that is it just a small subset of the available data. Many more samples of each species exist and could be used to improve the accuracy for any particular species of interest. However this effort will focus on creating a pipeline for training a species predictor and will leave for future work the process of refinement with further data augmentation.
 
 ### Problem Statement
 In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
@@ -118,6 +117,11 @@ In this section, you will need to provide discussion as to how one aspect of the
 - _Are there further improvements that could be made on the algorithms or techniques you used in this project?_
 - _Were there algorithms or techniques you researched that you did not know how to implement, but would consider using if you knew how?_
 - _If you used your final solution as the new benchmark, do you think an even better solution exists?_
+
+
+## References
+
+[Bird Song Research: The Past 100 Years](https://courses.washington.edu/ccab/Baker%20-%20100%20yrs%20of%20birdsong%20research%20-%20BB%202001.pdf)
 
 -----------
 
