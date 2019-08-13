@@ -15,7 +15,7 @@ Many social animals communicate using vocalizations that can give clues to their
 
 The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle takes a deep learning approach for classifying recordings of ultrasonic vocalizations of rodents. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
 
-Here we apply we take a similar approach to attempt to predict bird species from digital audio recordings of their vocalizations. We use crowd-sourced Creative Commons audio recordings of 91 different species common in California and Nevada, USA. The dataset [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) was curated for this purpose. It should be noted that is it just a small subset of the available data. Many more samples of each species exist and could be used to improve the accuracy for any particular species of interest. However this effort will focus on creating a pipeline for training a species predictor and will leave for future work the process of refinement with further data augmentation.
+Here we apply we take a similar approach to attempt to predict bird species from digital audio recordings of their vocalizations. Using [a crowd-sourced Creative Commons database of audio recordings](https://www.xeno-canto.org/) from around the world, the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset was curated to jumpstart exploration into this space. This dataset includes 30 audio samples for each of 91 different avian species common in California and Nevada, USA.
 
 ### Problem Statement
 In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
@@ -23,12 +23,19 @@ In this section, you will want to clearly define the problem that you are trying
 - _Have you thoroughly discussed how you will attempt to solve the problem?_
 - _Is an anticipated solution clearly defined? Will the reader understand what results you are looking for?_
 
+... ...
+* mention the issues with the approach taken to augment samples in the [British Birdsong feature extraction kernel](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb). Essentially there aren't enough samples per class to regularize for environmental factors. This approach will not perform well on new data.
+* Leave room for reducing the problem space by reducing the number of classes.
+....
+
+It should be noted that this effort is focusing on just a small subset of the available data. Many additional samples of each species are available and could be used to improve the accuracy for any particular species of interest. However this effort will focus on creating a pipeline for training a species predictor and will leave for future work the process of refinement with further data augmentation.
+
 ### Metrics
 In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:
 - _Are the metrics you’ve chosen to measure the performance of your models clearly discussed and defined?_
 - _Have you provided reasonable justification for the metrics chosen based on the problem and solution?_
 
-Model performance will be evaluated by calculating the [accuracy score] (), defined as the number of samples correctly labeled divided by the total number of samples evaluated. Both training and evaluation accuracy will be monitored throughout the model selection and training process, and the final test performance performance will be evaluated on a separate test dataset, previously unseen by the model. 
+Model performance will be evaluated by calculating the [accuracy score] (), defined as the number of samples correctly labeled divided by the total number of samples evaluated. Both training and evaluation accuracy will be monitored throughout the model selection and training process, and the final test performance performance will be evaluated on a separate test dataset, previously unseen by the model.
 
 ## II. Analysis
 _(approx. 2-4 pages)_
