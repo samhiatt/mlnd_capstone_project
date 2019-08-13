@@ -28,7 +28,9 @@ In this section, you will want to clearly define the problem that you are trying
 * Leave room for reducing the problem space by reducing the number of classes.
 ....
 
-It should be noted that this effort is focusing on just a small subset of the available data. Many additional samples of each species are available and could be used to improve the accuracy for any particular species of interest. However this effort will focus on creating a pipeline for training a species predictor and will leave for future work the process of refinement with further data augmentation.
+Using audio data from the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset, this project creates a classifier to predict the most prevalent bird species in a given audio sample of vocalizations. 
+
+This effort focuses on training a classifier on just a small subset of the available data. Many additional samples of each species are available online and could be used to improve the accuracy for any particular species of interest. However, such refinement will be left for future work. 
 
 ### Metrics
 In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:
