@@ -3,19 +3,16 @@
 Sam Hiatt
 Aug 12, 2019
 
-## I. Definition
-### Project Overview
-In this section, look to provide a high-level overview of the project in layman’s terms. Questions to ask yourself when writing this section:
-- _Has an overview of the project been provided, such as the problem domain, project origin, and related datasets or input data?_
-- _Has enough background information been given so that an uninformed reader would understand the problem domain and following problem statement?_
+## I. Project Definition
+
+### Overview
 
 #### Background
+
 Many social animals communicate using vocalizations that can give clues to their species as well as to their intent.
-[Spectrograms](https://en.wikipedia.org/wiki/Spectrogram) (or sonograms, visualizations based on sound frequencies) are commonly used for visual representation of audio information and have long been used for studying recordings of animal vocalizations.  
+[Spectrograms](https://en.wikipedia.org/wiki/Spectrogram) (also called sonograms, visualizations based on sound frequencies) are commonly used for visual representation of audio information and have long been used for studying recordings of animal vocalizations. The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle uses spectrograms and takes a deep learning approach to classifying recordings of ultrasonic vocalizations of rodents. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
 
-The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle takes a deep learning approach for classifying recordings of ultrasonic vocalizations of rodents. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
-
-Here we apply we take a similar approach to attempt to predict bird species from digital audio recordings of their vocalizations. Using [a crowd-sourced Creative Commons database of audio recordings](https://www.xeno-canto.org/) from around the world, the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset was curated to jumpstart exploration into this space. This dataset includes 30 audio samples for each of 91 different avian species common in California and Nevada, USA.
+Here we apply we take a similar approach to attempt to predict bird species from digital audio recordings of their vocalizations. Using recordings from [Xeno Canto](https://www.xeno-canto.org/), a crowd-sourced Creative Commons database of audio recordings from around the world, the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset was curated to jumpstart exploration into this space. This dataset includes 30 varying length audio samples for each of 91 different avian species common in California and Nevada, USA.
 
 ### Problem Statement
 In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
@@ -28,19 +25,18 @@ In this section, you will want to clearly define the problem that you are trying
 * Leave room for reducing the problem space by reducing the number of classes.
 ....
 
-Using audio data from the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset, this project creates a classifier to predict the most prevalent bird species in a given audio sample of vocalizations. 
+Using audio data from the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset, this project trains a classifier to predict the most prevalent bird species in a given audio sample of avian vocalizations. During preprocessing,[Mel-spectrograms](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) and [Mel-frequency Cepstral Coefficients (MFCCs)](https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html) are generated and used as input features for classification. Several different classification models are implemented, tuned, and evaluated. It is expected that a CNN will be able to achieve improved performance by introducing some temporal invariance to the input data. 
 
-This effort focuses on training a classifier on just a small subset of the available data. Many additional samples of each species are available online and could be used to improve the accuracy for any particular species of interest. However, such refinement will be left for future work. 
+This effort focuses on just a small subset of the available data. While many additional samples of each species are available online and could be used to improve the accuracy for any particular species of interest, such refinement is left for future work.
 
 ### Metrics
 In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:
 - _Are the metrics you’ve chosen to measure the performance of your models clearly discussed and defined?_
 - _Have you provided reasonable justification for the metrics chosen based on the problem and solution?_
 
-Model performance will be evaluated by calculating the [accuracy score] (), defined as the number of samples correctly labeled divided by the total number of samples evaluated. Both training and evaluation accuracy will be monitored throughout the model selection and training process, and the final test performance performance will be evaluated on a separate test dataset, previously unseen by the model.
+Model performance is evaluated by calculating the [accuracy score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html), defined as the number of samples correctly labeled divided by the total number of samples evaluated. Both training and evaluation accuracy are monitored during the model selection and training process, and the resulting model performance is evaluated on a designated test dataset, previously unseen by the model.
 
 ## II. Analysis
-_(approx. 2-4 pages)_
 
 ### Data Exploration
 In this section, you will be expected to analyze the data you are using for the problem. This data can either be in the form of a dataset (or datasets), input data (or input files), or even an environment. The type of data should be thoroughly described and, if possible, have basic statistics and information presented (such as discussion of input features or defining characteristics about the input or environment). Any abnormalities or interesting qualities about the data that may need to be addressed have been identified (such as features that need to be transformed or the possibility of outliers). Questions to ask yourself when writing this section:
