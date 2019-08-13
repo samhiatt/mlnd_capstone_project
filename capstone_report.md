@@ -28,6 +28,7 @@ In this section, you will need to clearly define the metrics or calculations you
 - _Are the metrics you’ve chosen to measure the performance of your models clearly discussed and defined?_
 - _Have you provided reasonable justification for the metrics chosen based on the problem and solution?_
 
+Model performance will be evaluated by calculating the [accuracy score] (), defined as the number of samples correctly labeled divided by the total number of samples evaluated. Both training and evaluation accuracy will be monitored throughout the model selection and training process, and the final test performance performance will be evaluated on a separate test dataset, previously unseen by the model. 
 
 ## II. Analysis
 _(approx. 2-4 pages)_
