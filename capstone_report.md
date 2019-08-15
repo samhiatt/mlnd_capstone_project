@@ -11,7 +11,7 @@ Aug 12, 2019
 
 [Spectrograms](https://en.wikipedia.org/wiki/Spectrogram) (also called sonograms, visualizations based on sound frequencies) are commonly used for visual representation of audio information and have long been used for studying recordings of animal vocalizations. The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle uses spectrograms and takes a deep learning approach to classifying recordings of ultrasonic vocalizations of rodents. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
 
-[Xeno Canto](https://www.xeno-canto.org/) is a crowd-sourced Creative Commons database of audio recordings from around the world, all labeled by species. It presents a good opportunity to leverage machine learning for classification of audio signals. 
+[Xeno Canto](https://www.xeno-canto.org/) is a crowd-sourced Creative Commons database of audio recordings from around the world, all labeled by species. It presents a good opportunity to leverage machine learning for classification of audio signals.
 ...
  small subset was curated to jumpstart exploration into this space. This dataset includes 30 varying length audio samples for each of 91 different avian species common in California and Nevada, USA.
 
@@ -28,10 +28,10 @@ In this section, you will want to clearly define the problem that you are trying
 
 This project takes a similar approach as that taken by DeepSqueak, using spectrograms as input to CNNs to try to automate classification of species....
 
-This project attempts to train a classifier to predict the most prevalent bird species present in a given audio sample of avian vocalizations. The classifier will take an mp3 audio file as input and return a label representing the predicted species. 
+This project attempts to train a classifier to predict the most prevalent bird species present in a given audio sample of avian vocalizations. The classifier will take an mp3 audio file as input and return a label representing the predicted species.
 
 [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa)
- [Mel-spectrograms](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) and [Mel-frequency Cepstral Coefficients (MFCCs)](https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html), audio transforms commonly used in voice recognition tasks, are comped from the xeni-canto data and used as input features for classification. 
+ [Mel-spectrograms](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) and [Mel-frequency Cepstral Coefficients (MFCCs)](https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html), audio transforms commonly used in voice recognition tasks, are comped from the xeni-canto data and used as input features for classification.
 
 
 Several different classification models are implemented and evaluated. It is expected that a CNN will be able to achieve improved performance by introducing some translational invariance to the input data.
@@ -53,7 +53,7 @@ In this section, you will be expected to analyze the data you are using for the 
 - _Are statistics about the dataset calculated and reported? Have any relevant results from this calculation been discussed?_
 - _Are there any abnormalities or characteristics about the input space or dataset that need to be addressed? (categorical variables, missing values, outliers, etc.)_
 
-* Show the list of classes, and total length of samples per class. 
+* Show the list of classes, and total length of samples per class.
 
 * Show the distribution of classes in the dataset, and in the train/test splits
 * Show the total length of samples per class
@@ -156,15 +156,25 @@ In this section, you will summarize the entire end-to-end problem solution and d
 - _Were there any difficult aspects of the project?_
 - _Does the final model and solution fit your expectations for the problem, and should it be used in a general setting to solve these types of problems?_
 
+* summarize process
+
+The process used to compile the list of audio samples for each species produced a few artifacts in the training dataset that likely impacts the performance for some species.  In particular, only the 30 shortest samples for each species recorded in California and Nevada were selected and downloaded from xeno-canto.org, with the intention of reducing the load on the servers. This has the effect of producing a dataset with shorter samples for species that are more commonly recorded. Interestingly, these shorter samples seem to be better for training, likely because they have a higher probability of containing an identifiable vocalization after being cropped by the data generator.
+
+An attempt was made to address this issue by filtering out quiet frames using the approach taken in [Edoardo Ferrante's kernel](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb). Preliminary experimentation with this approach did not show any improvement, in fact it seemed to hinder performance, probably because this filtering ended up altering the duration between chirps or otherwise  modifying distinguishing shapes in the spectrograms. This could perhaps be improved by modifying the filtering parameters to focus on higher frequency bands, or by leaving a larger buffer around filtered frames. 
+
 ### Improvement
 In this section, you will need to provide discussion as to how one aspect of the implementation you designed could be improved. As an example, consider ways your implementation can be made more general, and what would need to be modified. You do not need to make this improvement, but the potential solutions resulting from these changes are considered and compared/contrasted to your current solution. Questions to ask yourself when writing this section:
 - _Are there further improvements that could be made on the algorithms or techniques you used in this project?_
 - _Were there algorithms or techniques you researched that you did not know how to implement, but would consider using if you knew how?_
 - _If you used your final solution as the new benchmark, do you think an even better solution exists?_
 
-Several improvements could be made to increase the accuracy of this classifier. The model architecture could be refined, experimenting with different kernel and polling sizes, or, for example, by adding a separate pathway for input MFCC data. Hyperparameter tuning could further improve accuracy. 
+Several improvements could be made to increase the accuracy of this classifier. The model architecture could be refined, experimenting with different kernel and pooling sizes, or, for example, by adding a separate pathway for input MFCC data. Hyperparameter tuning could further improve accuracy.
 
-However, based on the analysis of model performance on each species, future efforts would likely be better rewarded by improving the quality of the training dataset. 
+
+
+Future data collection efforts should attempt to generate a more balanced distribution of samples among classes, with respect to the total length of audio.
+
+However, based on the analysis of model performance on each species, future efforts would likely be better rewarded by improving the quality of the training dataset.
 
 
 ## References
