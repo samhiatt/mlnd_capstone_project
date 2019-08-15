@@ -162,6 +162,10 @@ In this section, you will need to provide discussion as to how one aspect of the
 - _Were there algorithms or techniques you researched that you did not know how to implement, but would consider using if you knew how?_
 - _If you used your final solution as the new benchmark, do you think an even better solution exists?_
 
+Several improvements could be made to increase the accuracy of this classifier. The model architecture could be refined, experimenting with different kernel and polling sizes, or, for example, by adding a separate pathway for input MFCC data. Hyperparameter tuning could further improve accuracy. 
+
+However, based on the analysis of model performance on each species, future efforts would likely be better rewarded by improving the quality of the training dataset. 
+
 
 ## References
 
