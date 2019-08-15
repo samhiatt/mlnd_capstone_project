@@ -11,6 +11,8 @@ Aug 12, 2019
 
 [Xeno-Canto.org](https://www.xeno-canto.org/) is a crowd-sourced Creative Commons database of audio recordings of avian vocalizations from around the world, all labeled by species. It presents an opportunity to experiment with leveraging machine learning for classification of audio signals. The [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset was procured for the purpose of jumpstarting exploration into this space. It contains a small subset of the available data, including 30 varying-length audio samples for each of 91 different bird species common in California and Nevada, USA.
 
+* **show example spectrogram**
+
 [Spectrograms](https://en.wikipedia.org/wiki/Spectrogram) (also called sonograms, visualizations based on sound frequencies) are commonly used for visual representation of audio information and have long been used for studying recordings of animal vocalizations. The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle takes a deep learning approach to classifying recordings of ultrasonic vocalizations of rodents using models trained on spectrograms. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
 
 Here a similar approach is taken, using spectrograms as inputs to deep learning models, to build a classifier of avian vocalizations.
@@ -21,24 +23,16 @@ In this section, you will want to clearly define the problem that you are trying
 - _Have you thoroughly discussed how you will attempt to solve the problem?_
 - _Is an anticipated solution clearly defined? Will the reader understand what results you are looking for?_
 
-This project defines and trains an audio recording classifier to predict bird species present in a given audio sample of avian vocalizations. It will take an mp3 audio file as input and return a label representing the common English name of the most prevalent predicted species in the recording.
+This project defines and trains a digital audio classifier to predict bird species present in a given audio sample of avian vocalizations. After being trained on a dataset of labeled samples, the classifier will be able to read an mp3 file and return a label representing the common English name of the most prevalent predicted species in the recording.
 
-
-This project takes a similar approach as that taken by DeepSqueak, using spectrograms as input to CNNs to try to automate classification of species....
-
-
-
-
-Several different classification models are implemented and evaluated. It is expected that a CNN will be able to achieve improved performance by introducing some translational invariance to the input data.
-
-This effort focuses on just a small subset of the available data. While many additional samples of each species are available online and could be used to improve the accuracy for any particular species of interest, such refinement is left for future work.
+This effort focuses on just a small subset of the available xeno-canto.org data. While many additional samples are available and could be used to improve the accuracy for any particular species of interest, or more species could be added, such refinement is left for future work.
 
 ### Metrics
 In this section, you will need to clearly define the metrics or calculations you will use to measure performance of a model or result in your project. These calculations and metrics should be justified based on the characteristics of the problem and problem domain. Questions to ask yourself when writing this section:
 - _Are the metrics you’ve chosen to measure the performance of your models clearly discussed and defined?_
 - _Have you provided reasonable justification for the metrics chosen based on the problem and solution?_
 
-Model performance is evaluated by calculating the [accuracy score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html), defined as the number of samples correctly labeled divided by the total number of samples evaluated. Both training and evaluation accuracy are monitored during the model selection and training process, and the resulting model performance is evaluated on a designated test dataset, previously unseen by the model.
+Performance is evaluated during model selection by calculating the [accuracy score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html) on n-fold cross validation datasets, defined as the number of samples correctly labeled divided by the total number of samples evaluated. Evaluation gives equal weight to each species, considering them all equally important to identify. So, for example, a model that correctly predicts the label (one out of 91 species) half of the time, would have a score of `0.50`. Final model performance is evaluated by training on the entire training dataset (without cross validation) and then predicting labels on a designated test dataset with samples previously unseen by the model.
 
 ## II. Analysis
 
