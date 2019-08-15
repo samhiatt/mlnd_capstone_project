@@ -9,11 +9,11 @@ Aug 12, 2019
 
 #### Background
 
-[Spectrograms](https://en.wikipedia.org/wiki/Spectrogram) (also called sonograms, visualizations based on sound frequencies) are commonly used for visual representation of audio information and have long been used for studying recordings of animal vocalizations. The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle uses spectrograms and takes a deep learning approach to classifying recordings of ultrasonic vocalizations of rodents. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
+[Xeno-Canto.org](https://www.xeno-canto.org/) is a crowd-sourced Creative Commons database of audio recordings of avian vocalizations from around the world, all labeled by species. It presents an opportunity to experiment with leveraging machine learning for classification of audio signals. The [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset was procured for the purpose of jumpstarting exploration into this space. It contains a small subset of the available data, including 30 varying-length audio samples for each of 91 different bird species common in California and Nevada, USA.
 
-[Xeno Canto](https://www.xeno-canto.org/) is a crowd-sourced Creative Commons database of audio recordings from around the world, all labeled by species. It presents a good opportunity to leverage machine learning for classification of audio signals.
-...
- small subset was curated to jumpstart exploration into this space. This dataset includes 30 varying length audio samples for each of 91 different avian species common in California and Nevada, USA.
+[Spectrograms](https://en.wikipedia.org/wiki/Spectrogram) (also called sonograms, visualizations based on sound frequencies) are commonly used for visual representation of audio information and have long been used for studying recordings of animal vocalizations. The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle takes a deep learning approach to classifying recordings of ultrasonic vocalizations of rodents using models trained on spectrograms. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
+
+Here a similar approach is taken, using spectrograms as inputs to deep learning models, to build a classifier of avian vocalizations.
 
 ### Problem Statement
 In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
@@ -21,17 +21,12 @@ In this section, you will want to clearly define the problem that you are trying
 - _Have you thoroughly discussed how you will attempt to solve the problem?_
 - _Is an anticipated solution clearly defined? Will the reader understand what results you are looking for?_
 
-... ...
-* mention the issues with the approach taken to augment samples in the [British Birdsong feature extraction kernel](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb). Essentially there aren't enough samples per class to regularize for environmental factors. This approach will not perform well on new data.
-* Leave room for reducing the problem space by reducing the number of classes.
-....
+This project defines and trains an audio recording classifier to predict bird species present in a given audio sample of avian vocalizations. It will take an mp3 audio file as input and return a label representing the common English name of the most prevalent predicted species in the recording.
+
 
 This project takes a similar approach as that taken by DeepSqueak, using spectrograms as input to CNNs to try to automate classification of species....
 
-This project attempts to train a classifier to predict the most prevalent bird species present in a given audio sample of avian vocalizations. The classifier will take an mp3 audio file as input and return a label representing the predicted species.
 
-[Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa)
- [Mel-spectrograms](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) and [Mel-frequency Cepstral Coefficients (MFCCs)](https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html), audio transforms commonly used in voice recognition tasks, are comped from the xeni-canto data and used as input features for classification.
 
 
 Several different classification models are implemented and evaluated. It is expected that a CNN will be able to achieve improved performance by introducing some translational invariance to the input data.
@@ -61,6 +56,8 @@ In this section, you will be expected to analyze the data you are using for the 
 * Report calculated statistics for mean pixels
 * Show some spectrograms and mfccs
 
+* mention the issues with the approach taken to augment samples in the [British Birdsong feature extraction kernel](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb). Essentially there aren't enough samples per class to regularize for environmental factors. This approach will not perform well on new data.
+
 
 ### Exploratory Visualization
 In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
@@ -83,6 +80,10 @@ In this section, you will need to discuss the algorithms and techniques you inte
 - _Is it made clear how the input data or datasets will be handled by the algorithms and techniques chosen?_
 
 * describe use of spectrograms, time on one axis, frequency on the other
+
+This project takes a similar approach as that taken by DeepSqueak, using spectrograms as input features to CNNs to try to automate classification of species....
+[Mel-spectrograms](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) and [Mel-frequency Cepstral Coefficients (MFCCs)](https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html), audio transforms commonly used in voice recognition tasks, are comped from the xeno-canto.org data and used as input features for classification.
+
 
 ### Benchmark
 In this section, you will need to provide a clearly defined benchmark result or threshold for comparing across performances obtained by your solution. The reasoning behind the benchmark (in the case where it is not an established result) should be discussed. Questions to ask yourself when writing this section:
@@ -160,7 +161,7 @@ In this section, you will summarize the entire end-to-end problem solution and d
 
 The process used to compile the list of audio samples for each species produced a few artifacts in the training dataset that likely impacts the performance for some species.  In particular, only the 30 shortest samples for each species recorded in California and Nevada were selected and downloaded from xeno-canto.org, with the intention of reducing the load on the servers. This has the effect of producing a dataset with shorter samples for species that are more commonly recorded. Interestingly, these shorter samples seem to be better for training, likely because they have a higher probability of containing an identifiable vocalization after being cropped by the data generator.
 
-An attempt was made to address this issue by filtering out quiet frames using the approach taken in [Edoardo Ferrante's kernel](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb). Preliminary experimentation with this approach did not show any improvement, in fact it seemed to hinder performance, probably because this filtering ended up altering the duration between chirps or otherwise  modifying distinguishing shapes in the spectrograms. This could perhaps be improved by modifying the filtering parameters to focus on higher frequency bands, or by leaving a larger buffer around filtered frames. 
+An attempt was made to address this issue by filtering out quiet frames using the approach taken in [Edoardo Ferrante's kernel](https://www.kaggle.com/fleanend/extract-features-with-librosa-predict-with-nb). Preliminary experimentation with this approach did not show any improvement, in fact it seemed to hinder performance, probably because this filtering ended up altering the duration between chirps or otherwise  modifying distinguishing shapes in the spectrograms. This could perhaps be improved by modifying the filtering parameters to focus on higher frequency bands, or by leaving a larger buffer around filtered frames.
 
 ### Improvement
 In this section, you will need to provide discussion as to how one aspect of the implementation you designed could be improved. As an example, consider ways your implementation can be made more general, and what would need to be modified. You do not need to make this improvement, but the potential solutions resulting from these changes are considered and compared/contrasted to your current solution. Questions to ask yourself when writing this section:
