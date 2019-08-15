@@ -9,10 +9,11 @@ Aug 12, 2019
 
 #### Background
 
-Many social animals communicate using vocalizations that can give clues to their species as well as to their intent.
 [Spectrograms](https://en.wikipedia.org/wiki/Spectrogram) (also called sonograms, visualizations based on sound frequencies) are commonly used for visual representation of audio information and have long been used for studying recordings of animal vocalizations. The project [DeepSqueak](https://github.com/DrCoffey/DeepSqueak) at the University of Washington in Seattle uses spectrograms and takes a deep learning approach to classifying recordings of ultrasonic vocalizations of rodents. Their publication in Nature, [DeepSqueak: a deep learning-based system for detection and analysis of ultrasonic vocalizations](https://www.nature.com/articles/s41386-018-0303-6), uses this classifier to prove correlations between specific behaviors and types of vocalizations.
 
-Here we apply we take a similar approach to attempt to predict bird species from digital audio recordings of their vocalizations. Using recordings from [Xeno Canto](https://www.xeno-canto.org/), a crowd-sourced Creative Commons database of audio recordings from around the world, the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset was curated to jumpstart exploration into this space. This dataset includes 30 varying length audio samples for each of 91 different avian species common in California and Nevada, USA.
+[Xeno Canto](https://www.xeno-canto.org/) is a crowd-sourced Creative Commons database of audio recordings from around the world, all labeled by species. It presents a good opportunity to leverage machine learning for classification of audio signals. 
+...
+ small subset was curated to jumpstart exploration into this space. This dataset includes 30 varying length audio samples for each of 91 different avian species common in California and Nevada, USA.
 
 ### Problem Statement
 In this section, you will want to clearly define the problem that you are trying to solve, including the strategy (outline of tasks) you will use to achieve the desired solution. You should also thoroughly discuss what the intended solution will be for this problem. Questions to ask yourself when writing this section:
@@ -25,7 +26,15 @@ In this section, you will want to clearly define the problem that you are trying
 * Leave room for reducing the problem space by reducing the number of classes.
 ....
 
-Using audio data from the [Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa) dataset, this project trains a classifier to predict the most prevalent bird species in a given audio sample of avian vocalizations. [Mel-spectrograms](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) and [Mel-frequency Cepstral Coefficients (MFCCs)](https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html), another audio transform commonly used in voice recognition tasks, are used as input features for classification. Several different classification models are implemented, tuned, and evaluated. It is expected that a CNN will be able to achieve improved performance by introducing some temporal invariance to the input data.
+This project takes a similar approach as that taken by DeepSqueak, using spectrograms as input to CNNs to try to automate classification of species....
+
+This project attempts to train a classifier to predict the most prevalent bird species present in a given audio sample of avian vocalizations. The classifier will take an mp3 audio file as input and return a label representing the predicted species. 
+
+[Xeno-Canto Avian Vocalizations CA/NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa)
+ [Mel-spectrograms](https://librosa.github.io/librosa/generated/librosa.feature.melspectrogram.html) and [Mel-frequency Cepstral Coefficients (MFCCs)](https://librosa.github.io/librosa/generated/librosa.feature.mfcc.html), audio transforms commonly used in voice recognition tasks, are comped from the xeni-canto data and used as input features for classification. 
+
+
+Several different classification models are implemented and evaluated. It is expected that a CNN will be able to achieve improved performance by introducing some translational invariance to the input data.
 
 This effort focuses on just a small subset of the available data. While many additional samples of each species are available online and could be used to improve the accuracy for any particular species of interest, such refinement is left for future work.
 
@@ -43,6 +52,15 @@ In this section, you will be expected to analyze the data you are using for the 
 - _Have you thoroughly discussed certain features about the dataset? Has a data sample been provided to the reader?_
 - _Are statistics about the dataset calculated and reported? Have any relevant results from this calculation been discussed?_
 - _Are there any abnormalities or characteristics about the input space or dataset that need to be addressed? (categorical variables, missing values, outliers, etc.)_
+
+* Show the list of classes, and total length of samples per class. 
+
+* Show the distribution of classes in the dataset, and in the train/test splits
+* Show the total length of samples per class
+* Show some histograms of spectrogram data, show the exponential distribution
+* Report calculated statistics for mean pixels
+* Show some spectrograms and mfccs
+
 
 ### Exploratory Visualization
 In this section, you will need to provide some form of visualization that summarizes or extracts a relevant characteristic or feature about the data. The visualization should adequately support the data being used. Discuss why this visualization was chosen and how it is relevant. Questions to ask yourself when writing this section:
